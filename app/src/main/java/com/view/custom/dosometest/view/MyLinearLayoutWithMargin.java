@@ -36,11 +36,21 @@ public class MyLinearLayoutWithMargin extends ViewGroup {
 
             View child = getChildAt(i);
 
-            int childWidth = child.getMeasuredWidth();
-            int childHeight = child.getMeasuredHeight();
+            // 得到MarginLayoutParams，margin就在这里保存着
+            MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+
+
+            // 获得子控件的宽高（需要加上对应的margin,让控件的宽高包含margin）
+            int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+            int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
             // 布局，就是设置好这个子控件的左上右下
-            child.layout(0, top, childWidth, top + childHeight);
+            // 在布局的时候，考虑控件的margin，把子view摆放好
+            // (这是一个竖向的LinearLayout，想想如何布置子控件)
+            child.layout(lp.leftMargin,
+                    top + lp.topMargin,
+                    childWidth - lp.rightMargin,
+                    top + childHeight - lp.bottomMargin);
             top += childHeight;
 
         }
@@ -115,9 +125,12 @@ public class MyLinearLayoutWithMargin extends ViewGroup {
             // 测量一下子控件的宽高
             measureChild(child, widthMeasureSpec, heightMeasureSpec);
 
-            // 获得子控件的宽高（需要加上对应的margin）
-            int childWidth = child.getMeasuredWidth() ;
-            int childHeight = child.getMeasuredHeight() ;
+            // 得到MarginLayoutParams，margin就在这里保存着
+            MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+            // 获得子控件的宽高（需要加上对应的margin,让控件的宽高包含margin，
+            // 这样才能让自定义的viewgroup在计算自身在AtMost模式的尺寸时候考虑到这些margin）
+            int childWidth = child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+            int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
 
             // 因为我们的自定义View模拟的是竖向的LinearLayout，所以：
             // 控件的宽度为所有子控件里，宽度最大的那个view的宽度，
@@ -131,5 +144,20 @@ public class MyLinearLayoutWithMargin extends ViewGroup {
     }
 
 
+//    支持Margin的固定写法，下面照抄就行了，至于为什么，可以去看源码，但是我觉得直接记住就ok了
 
+    @Override
+    protected LayoutParams generateLayoutParams(LayoutParams p) {
+        return new MarginLayoutParams(p);
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+    }
 }
