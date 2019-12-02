@@ -30,6 +30,20 @@ public class MyLinearLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        int top = 0;
+        int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+
+            View child = getChildAt(i);
+
+            int childWidth = child.getMeasuredWidth();
+            int childHeight = child.getMeasuredHeight();
+
+            // 布局，就是设置好这个子控件的左上右下
+            child.layout(0, top, childWidth, top + childHeight);
+            top += childHeight;
+
+        }
 
     }
 
