@@ -7,11 +7,11 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.view.custom.dosometest.view.MyLinearLayoutWithMargin
+    <com.view.custom.dosometest.view.MyLinearLayoutWithMarginAndPadding
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
-        android:padding="10px"
+        android:padding="30px"
         android:visibility="visible">
 
         <TextView
@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
+            android:paddingTop="30px"
             android:background="#fcff0c"
             android:layout_marginBottom="10px"
             android:text="Java is " />
@@ -37,7 +38,7 @@
             android:layout_marginBottom="50px"
             android:background="#fc090c"
             android:text="kotlin is " />
-    </com.view.custom.dosometest.view.MyLinearLayoutWithMargin>
+    </com.view.custom.dosometest.view.MyLinearLayoutWithMarginAndPadding>
 
 
     <com.view.custom.dosometest.view.CustomView

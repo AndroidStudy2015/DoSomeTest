@@ -30,7 +30,7 @@ public class MyLinearLayoutWithMarginAndPadding extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int top = 0;
+        int top = getPaddingTop();
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
 
@@ -47,9 +47,9 @@ public class MyLinearLayoutWithMarginAndPadding extends ViewGroup {
             // 布局，就是设置好这个子控件的左上右下
             // 在布局的时候，考虑控件的margin，把子view摆放好
             // (这是一个竖向的LinearLayout，想想如何布置子控件)
-            child.layout(lp.leftMargin,
+            child.layout(lp.leftMargin+getPaddingLeft(),
                     top + lp.topMargin,
-                    childWidth - lp.rightMargin,
+                    childWidth - lp.rightMargin+getPaddingLeft(),
                     top + childHeight - lp.bottomMargin);
             top += childHeight;
 
@@ -139,7 +139,8 @@ public class MyLinearLayoutWithMarginAndPadding extends ViewGroup {
             height += childHeight;
         }
 
-
+        width += (getPaddingLeft() + getPaddingRight());
+        height += (getPaddingTop() + getPaddingBottom());
         return new Point(width, height);
     }
 
