@@ -120,7 +120,17 @@ public class RefreshView extends LinearLayout {
             Log.e("ccc", "不能再往下拉了&&你还在往下拉，父布局拦截，开始拉出刷新头");
             return true;
         }
+        if (mLp.topMargin>-mHeaderHeight) {
+            Log.e("ccc", "只要顶部刷新头，显示着，就让父布局拦截");
+            return true;
+        }
+
         return false;
+    }
+
+    @Override
+    public void requestDisallowInterceptTouchEvent(boolean b) {
+        // 去掉默认行为，使得每个事件都会经过这个Layout
     }
 
     @Override
@@ -145,6 +155,14 @@ public class RefreshView extends LinearLayout {
                 mLp.topMargin += (int) deltaY;
                 Log.e("ccc", "y:" + y + "mLastY：" + mLastY + "deltaY：" + deltaY + "mLp.topMargin：" + mLp.topMargin);
                 mHeader.setLayoutParams(mLp);
+
+                if (mLp.topMargin <= -mHeaderHeight && deltaY <0) {
+                    // 重新dispatch一次down事件，使得列表可以继续滚动
+                    int oldAction = event.getAction();
+                    event.setAction(MotionEvent.ACTION_DOWN);
+                    dispatchTouchEvent(event);
+                    event.setAction(oldAction);
+                }
                 break;
 
 
