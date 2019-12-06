@@ -24,6 +24,7 @@ public class MultiPointTestView extends LinearLayout {
     private View mHeader;
     private int mHeaderHeight;
     private MarginLayoutParams mLp;
+    private int mLastPointerCount;
 
     public MultiPointTestView(Context context) {
         super(context);
@@ -111,6 +112,7 @@ public class MultiPointTestView extends LinearLayout {
         }
 
         mLastY = y;
+//        intercept = true;
         return intercept;
     }
 
@@ -120,7 +122,7 @@ public class MultiPointTestView extends LinearLayout {
             Log.e("ccc", "不能再往下拉了&&你还在往下拉，父布局拦截，开始拉出刷新头");
             return true;
         }
-        if (mLp.topMargin>-mHeaderHeight) {
+        if (mLp.topMargin > -mHeaderHeight) {
             Log.e("ccc", "只要顶部刷新头，显示着，就让父布局拦截");
             return true;
         }
@@ -133,30 +135,80 @@ public class MultiPointTestView extends LinearLayout {
         // 去掉默认行为，使得每个事件都会经过这个Layout
     }
 
+    int curActiveId = 0;
+    int lastActiveId = 0;
+    int curActiveIndex = 0;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        float y = event.getY();
+        int count = event.getPointerCount();
+        curActiveIndex = (curActiveIndex >= count) ? count - 1 : curActiveIndex;
+        Log.e("qqq", "curActiveIndex:" + curActiveIndex);
+        float y = event.getY(curActiveIndex);
 
-        switch (event.getAction()) {
+        curActiveId = event.getPointerId(curActiveIndex);
+        if (curActiveId != lastActiveId) {
+            mLastY = y;
+        }
+
+
+        // 获取index，在move时候，此方法无效，只能在ACTION_DOWN，ACTION_POINTER_DOWN，ACTION_POINTER_UP，ACTION_UP里得到的index才是有效的
+        int action_index = event.getActionIndex();
+        // 通过index得到该手指的id
+        int action_id = event.getPointerId(action_index);
+        // 得到事件类型
+        int action = event.getActionMasked();
+
+        String s = " action: " + action + "   action_index: " + action_index + " action_id: " + action_id;
+        Log.e("qwe", s);
+
+//        String s = "";
+
+
+        switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+                Log.e("cjx", "ACTION_DOWN-----------" + s);
+
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                Log.e("cjx", "ACTION_POINTER_DOWN---" + s);
+                curActiveIndex = event.getActionIndex();
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                Log.e("cjx", "ACTION_POINTER_UP-----" + s);
+//                int curUpId = event.getPointerId(event.getActionIndex());
+//                if (curUpId == curActiveId) {// 多指操作的情况下，如果抬起的手指，是当前正在激活的手指，那么当前索引变为0
+//                    curActiveIndex = 0;
+//                }
+                int upIndex = event.getActionIndex();
+                Log.e("qqq", "upIndex:" + upIndex + " curActiveIndex:" + curActiveIndex);
+                if (curActiveIndex > upIndex) {
+                    curActiveIndex = curActiveIndex - 1;
+                } else if (curActiveIndex == upIndex) {
+                    curActiveIndex = 0;
+                }
 
                 break;
 
+
             case MotionEvent.ACTION_MOVE:
+//                Log.e("cjx", "ACTION_MOVE"+ s);
+                Log.e("woaini", "ACTION_MOVE-----------" + event.getActionIndex() + "  ");
+
                 float deltaY = y - mLastY;
 
                 // 防止刷新头被无限制下拉，限定个高度
 
-                if (mLp.topMargin + deltaY > mHeaderHeight) {
-                    deltaY = mHeaderHeight - mLp.topMargin;
+                if (mLp.topMargin + deltaY > mHeaderHeight * 2) {
+                    deltaY = mHeaderHeight * 2 - mLp.topMargin;
                 }
                 // 动态改变刷新头的topMargin
                 mLp.topMargin += (int) deltaY;
-                Log.e("ccc", "y:" + y + "mLastY：" + mLastY + "deltaY：" + deltaY + "mLp.topMargin：" + mLp.topMargin);
                 mHeader.setLayoutParams(mLp);
 
-                if (mLp.topMargin <= -mHeaderHeight && deltaY <0) {
+                if (mLp.topMargin <= -mHeaderHeight && deltaY < 0) {
                     // 重新dispatch一次down事件，使得列表可以继续滚动
                     int oldAction = event.getAction();
                     event.setAction(MotionEvent.ACTION_DOWN);
@@ -167,6 +219,8 @@ public class MultiPointTestView extends LinearLayout {
 
 
             case MotionEvent.ACTION_UP:
+                Log.e("cjx", "ACTION_UP-------------" + s);
+
                 //松手后，看位置，如果过半，刷新头全部显示，没过半，刷新头全部隐藏
                 if (mLp.topMargin > -mHeaderHeight / 2) {
                     smoothChangeTopMargin(mLp.topMargin, 0);
@@ -178,6 +232,7 @@ public class MultiPointTestView extends LinearLayout {
         }
 
         mLastY = y;
+        lastActiveId = curActiveId;
 
         return true;
     }

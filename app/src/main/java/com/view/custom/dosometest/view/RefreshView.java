@@ -120,7 +120,7 @@ public class RefreshView extends LinearLayout {
             Log.e("ccc", "不能再往下拉了&&你还在往下拉，父布局拦截，开始拉出刷新头");
             return true;
         }
-        if (mLp.topMargin>-mHeaderHeight) {
+        if (mLp.topMargin > -mHeaderHeight) {
             Log.e("ccc", "只要顶部刷新头，显示着，就让父布局拦截");
             return true;
         }
@@ -133,15 +133,49 @@ public class RefreshView extends LinearLayout {
         // 去掉默认行为，使得每个事件都会经过这个Layout
     }
 
+    int curActiveId = 0;// 当前操作滑动的手指的id
+    int lastActiveId = 0;//上次操作滑动的手指的id
+    int curActiveIndex = 0;//当前操作滑动的手指的index
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        float y = event.getY();
+        int count = event.getPointerCount();
+        // 避免索引越界，应该不会越界，判断一下稳妥
+        curActiveIndex = (curActiveIndex >= count) ? count - 1 : curActiveIndex;
+        curActiveIndex = (curActiveIndex < 0) ? 0 : curActiveIndex;
+        Log.e("qqq", "curActiveIndex:" + curActiveIndex);
+        float y = event.getY(curActiveIndex);//得到操控手指的坐标（只是关心操控手指）
+        curActiveId = event.getPointerId(curActiveIndex);
+        //下面判断手指是不是同一个，必须用id，因为index随时会变的
+        if (curActiveId != lastActiveId) {//判断当前操控手指id和上次操控手指id是不是一样
+            mLastY = y;//★★★如果不一样，马上把此刻的y坐标赋值给上次的y坐标，这是避免位移突变的关键点
+        }
 
-        switch (event.getAction()) {
+        switch (event.getActionMasked()) {//一定要用getActionMasked
             case MotionEvent.ACTION_DOWN:
 
                 break;
+
+            case MotionEvent.ACTION_POINTER_DOWN:
+                //新手指按下，让它成为控制手指，更新下当前的控制手指的index
+                curActiveIndex = event.getActionIndex();
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+
+                int upIndex = event.getActionIndex();
+                Log.e("qqq", "upIndex:" + upIndex + " curActiveIndex:" + curActiveIndex);
+                if (curActiveIndex > upIndex) {
+                    // 如果当前控制手指的index>抬起的手指index，需要减去一（很关键，博客分析过）
+                    curActiveIndex = curActiveIndex - 1;
+                } else if (curActiveIndex == upIndex) {
+                    // 如果相等，说明你抬起来的就是操控手指，那么变更操控手指为第一根手指
+                    curActiveIndex = 0;
+                }
+
+                break;
+
 
             case MotionEvent.ACTION_MOVE:
                 float deltaY = y - mLastY;
@@ -156,7 +190,7 @@ public class RefreshView extends LinearLayout {
                 Log.e("ccc", "y:" + y + "mLastY：" + mLastY + "deltaY：" + deltaY + "mLp.topMargin：" + mLp.topMargin);
                 mHeader.setLayoutParams(mLp);
 
-                if (mLp.topMargin <= -mHeaderHeight && deltaY <0) {
+                if (mLp.topMargin <= -mHeaderHeight && deltaY < 0) {
                     // 重新dispatch一次down事件，使得列表可以继续滚动
                     int oldAction = event.getAction();
                     event.setAction(MotionEvent.ACTION_DOWN);
@@ -178,6 +212,7 @@ public class RefreshView extends LinearLayout {
         }
 
         mLastY = y;
+        lastActiveId = curActiveId;//别忘了，更新上次的操控手指id
 
         return true;
     }
