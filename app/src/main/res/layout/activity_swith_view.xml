@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+
+
+    <com.view.custom.dosometest.view.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#00fff0"
+            android:padding="3dp"
+            android:text="天龙八部" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#f09ff0"
+            android:padding="3dp"
+            android:text="让自定义ViewGroup里的子控件支持Margin" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#abc123"
+            android:padding="3dp"
+
+            android:text="神雕侠侣" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#ff8ffc"
+
+            android:padding="3dp"
+            android:text="射雕英雄传" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#cff098"
+
+            android:padding="3dp"
+            android:text="红楼梦" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#fffff0"
+            android:padding="3dp"
+
+            android:text="秒懂OnLayout" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#ff98f0"
+
+            android:padding="3dp"
+            android:text="秒懂OnMeasure" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#12f456"
+            android:padding="3dp"
+            android:text="好难学" />
+    </com.view.custom.dosometest.view.FlowLayout>
+
+    <com.view.custom.dosometest.view.SwitchView1
+        android:layout_width="300px"
+        android:layout_height="100px"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:visibility="gone">
+
+    </RelativeLayout>
+</LinearLayout>

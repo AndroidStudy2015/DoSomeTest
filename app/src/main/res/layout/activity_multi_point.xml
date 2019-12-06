@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.view.custom.dosometest.view.MultiPointTestView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="刷新头"
+        android:textSize="30sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="
+头条新闻
+视频
+视频
+为什么爱沙尼亚在PISA排名这样高
+亚洲多国盛行补习，让它们的学生在国际考核名列前芧，但北欧一个国家没有补习社，同样能达到差不多的学习效果。
+
+2小时前
+为什么爱沙尼亚在PISA排名这样高
+五个被麦克风无心录下的领袖谈话与外交尴尬
+从美国到法国，全球各地的政治人物都为尚未关闭的麦克风侧录到他们私下的谈话感到尴尬。
+
+3小时前
+五个被麦克风无心录下的领袖谈话与外交尴尬
+香港、维吾尔人权法案：投下唯一的反对票的“反叛”美国议员
+有一位美国国会议员，近来在多项涉华法案上“力排众议”，投下了反对制裁北京的唯一一票。他是谁？
+美国备好一份“圣诞礼物”。
+
+2019年 12月 4日
+金正恩再度驭白马上白头山 或为美国备好“圣诞礼物”
+视频
+视频
+“华裔二代”回国记：中国熊猫外交60载摸爬滚打
+贝贝生于美国、但是中国籍，在美“居留权”只有四年。贝贝回国，是一甲子“熊猫外交”史上的最新一页。
+
+2019年 12月 4日
+“华裔二代”回国记：中国熊猫外交60载摸爬滚打
+PISA最新评估：哪个国家的学生最优秀？
+经济合作与发展组织的项目对全世界15岁学生的数学、阅读和科学知识能力进行评估，已经成为全球教育水准的一个重要指标。
+
+2019年 12月 4日
+PISA最新评估：哪个国家的学生最优秀？
+英国安德鲁王子性丑闻指称在英美持续发酵
+英国女王的次子安德鲁王子被指性丑闻的麻烦在英国和美国进一步发酵。BBC深入调查和分析。
+
+多个亚洲地区占据头数名，之后就是北欧国家爱沙尼亚，当地学生阅读、数学和科学成绩分别排行第五、第八和第四，是亚洲地区以外排行最高的国家。
+
+"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.view.custom.dosometest.view.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#aaaaaa"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#00fff0"
+            android:padding="3dp"
+            android:text="天龙八部" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#f09ff0"
+            android:padding="3dp"
+            android:text="让自定义ViewGroup里的子控件支持Margin" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#abc123"
+            android:padding="3dp"
+
+            android:text="神雕侠侣" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#ff8ffc"
+
+            android:padding="3dp"
+            android:text="射雕英雄传" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#cff098"
+
+            android:padding="3dp"
+            android:text="红楼梦" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#fffff0"
+            android:padding="3dp"
+
+            android:text="秒懂OnLayout" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#ff98f0"
+
+            android:padding="3dp"
+            android:text="秒懂OnMeasure" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#12f456"
+            android:padding="3dp"
+            android:text="好难学" />
+    </com.view.custom.dosometest.view.FlowLayout>
+
+    <com.view.custom.dosometest.view.SwitchView1
+        android:layout_width="300px"
+        android:layout_height="100px"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:visibility="gone">
+
+    </RelativeLayout>
+</com.view.custom.dosometest.view.MultiPointTestView>

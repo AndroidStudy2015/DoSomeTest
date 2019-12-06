@@ -15,8 +15,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_multi_point);
 
+//        codeAddView();
+
+    }
+
+    private void codeAddView() {
         rl = (RelativeLayout) findViewById(R.id.rl);
 
         TextView textView = new TextView(this);
@@ -36,6 +41,5 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp2.addRule(RelativeLayout.BELOW, R.id.textview);
         rl.addView(imageView, lp2);
-
     }
 }
