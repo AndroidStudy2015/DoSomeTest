@@ -185,6 +185,10 @@ public class RefreshView extends LinearLayout {
                 if (mLp.topMargin + deltaY > mHeaderHeight) {
                     deltaY = mHeaderHeight - mLp.topMargin;
                 }
+
+                else if (mLp.topMargin + deltaY<=-mHeaderHeight){
+                    deltaY=-mHeaderHeight-mLp.topMargin;
+                }
                 // 动态改变刷新头的topMargin
                 mLp.topMargin += (int) deltaY;
                 Log.e("ccc", "y:" + y + "mLastY：" + mLastY + "deltaY：" + deltaY + "mLp.topMargin：" + mLp.topMargin);
