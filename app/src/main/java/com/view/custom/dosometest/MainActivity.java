@@ -1,6 +1,7 @@
 package com.view.custom.dosometest;
 
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
@@ -15,11 +16,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_gesture_detector);
+        setContentView(R.layout.activity_canvas_view);
 
 //        codeAddView();
 
+
+
     }
+
+
+
 
     private void codeAddView() {
         rl = (RelativeLayout) findViewById(R.id.rl);
